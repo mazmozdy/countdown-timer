@@ -1,22 +1,36 @@
+import React from 'react';
+
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [count, setCount] = React.useState(60);
+  React.useEffect(() => {
+    let counter = count
+    if (counter > 0)
+      counter = count - 1
+
+    const decrement = setInterval(() => {
+      setCount(counter)
+    }, 1000)
+    return () => clearInterval(decrement)
+  }, [count]);
+
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Count Down Timer
         </p>
-        <a
+        <p
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
-        </a>
+          {count + " seconds left"}
+        </p>
+
       </header>
     </div>
   );
